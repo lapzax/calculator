@@ -58,7 +58,7 @@ $(function () {
 	$('#btnDivide').on('click', function () {
 		if(currentText==''){
 			render();
-		}else if(currentText!=''){
+		}else if(currentText!=''|| temp!=''){
 			temp += currentText;
 			currentText = '';
 			opt = 'Divide';
@@ -67,7 +67,7 @@ $(function () {
 	$('#btnMultiply').on('click', function () {
 		if(currentText==''){
 			render();
-		}else if(currentText!=''){
+		}else if(currentText!=''|| temp!=''){
 			temp += currentText;
 			currentText = '';
 			opt = 'Mutiply';
@@ -77,7 +77,7 @@ $(function () {
 		if(currentText==''){
 			currentText = '-' + currentText;
 			render();
-		}else if(currentText!=''){
+		}else if(currentText!=''|| temp!=''){
 			temp += currentText;
 			currentText = '';
 			opt = 'Minus';
@@ -86,7 +86,7 @@ $(function () {
 	$('#btnAdd').on('click', function () {
 		if(currentText==''){
 			render();
-		}else if(currentText!=''){
+		}else if(currentText!='' || temp!=''){
 			temp += currentText;
 			currentText = '';
 			opt = 'Add';
@@ -103,43 +103,41 @@ $(function () {
 	})
 
 	$('#btnEqual').on('click', function () {
-		switch(opt){
-			case 'Divide':
+		if(opt!=''){
+			if(opt=='Divide'){
 				if(ans!=''){
 					ans /= currentText;
 				}else{
 					ans += (temp/currentText);
 				}
-				opt = '';
-				break;
-			case 'Mutiply':
+			}else if(opt=='Mutiply'){
 				if(ans!=''){
-					ans *= currentText;
+					ans *=currentText;
 				}else{
 					ans += (temp*currentText);
 				}
-				opt = '';
-				break;
-			case 'Minus':
+			}else if(opt=='Minus'){
 				if(ans!=''){
 					ans -= currentText;
 				}else{
 					ans += (temp-currentText);
 				}				
-				opt = '';
-				break;
-			case 'Add':
+			}else{
 				if(ans!=''){
-					ans += currentText;
+					ans += parseInt(currentText);
 				}else{
-					ans += (temp+currentText);
+					ans += (parseInt(temp)+parseInt(currentText));
 				}
-				opt = '';
-				break;
+			}
+			$('#msg').text(ans);
+			currentText = '';
+			currentText += ans;
+			ans = '';
+			opt = '';
+			temp = '';
 		}
-		$('#msg').text(ans);
 	})
-	
-	
+
+
 	
 })
